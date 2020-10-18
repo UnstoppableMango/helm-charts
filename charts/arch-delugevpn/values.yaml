@@ -48,7 +48,7 @@ strictPortForward: "no"
 
 enablePrivoxy: "no"
 
-lanNetword: "",
+lanNetwork: ""
 
 nameServers: ""
 

@@ -36,6 +36,34 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+vpn:
+  enabled: "yes"
+  user: ""
+  password: ""
+  provider: ""
+  client: ""
+  options: ""
+
+strictPortForward: "no"
+
+enablePrivoxy: "no"
+
+lanNetword: "",
+
+nameServers: ""
+
+deluge:
+  daemonLogLevel: ""
+  webLogLevel: ""
+
+additionalPorts: ""
+
+debug: false
+
+umask: 000
+puid: 0
+pgid: 0
+
 service:
   type: ClusterIP
   port: 80

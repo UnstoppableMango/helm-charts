@@ -53,8 +53,8 @@ lanNetwork: ""
 nameServers: ""
 
 deluge:
-  daemonLogLevel: ""
-  webLogLevel: ""
+  daemonLogLevel: "warning"
+  webLogLevel: "warning"
 
 additionalPorts: ""
 

@@ -4,28 +4,32 @@ metadata:
   name: {{ .Release.Name }}-configmap
   namespace: {{ .Release.Namespace }}
 data:
-  VPN_ENABLED: {{ .Values.vpn.enabled }}
-  VPN_USER: {{ .Values.vpn.user }}
-{{- if .Values.vpn.password }}
-  VPN_PASS: {{ .Values.vpn.password }}
+{{- with .Values }}
+  VPN_ENABLED: {{ .vpn.enabled }}
+{{- if .vpn.enabled }}
+  VPN_USER: {{ required "A valid username is required!" .vpn.user }}
+  VPN_PASS: {{ required "A valid password is required!" .vpn.password }}
+  VPN_PROV: {{ required "A valid VPN provider is required!" .vpn.provider }}
+  VPN_CLIENT: {{ required "A valid VPN client is required!" .vpn.client }}
+  {{- if .vpn.options }}
+  VPN_OPTIONS: {{ .vpn.options }}
+  {{- end }}
 {{- end }}
-{{- if .Values.vpn.provider }}
-  VPN_PROV: {{ .Values.vpn.provider }}
+  STRICT_PORT_FORWARD: {{ .strictPortForward }}
+  ENABLE_PRIVOXY: {{ .enablePrivoxy }}
+{{- if .lanNetwork }}
+  LAN_NETWORK: {{ .lanNetwork }}
 {{- end }}
-{{- if .Values.vpn.client }}
-  VPN_CLIENT: {{ .Values.vpn.client }}
+{{- if .nameServers }}
+  NAME_SERVERS: {{ .nameServers }}
 {{- end }}
-{{- if .Values.vpn.options }}
-  VPN_OPTIONS: {{ .Values.vpn.options }}
+  DELUGE_DAEMON_LOG_LEVEL: {{ .deluge.daemonLogLevel }}
+  DELUGE_WEB_LOG_LEVEL: {{ .deluge.webLogLevel }}
+{{- if .additionalPorts }}
+  ADDITIONAL_PORTS: {{ .additionalPorts }}
 {{- end }}
-  # STRICT_PORT_FORWARD: {{ .Values.strictPortForward }}
-  # ENABLE_PRIVOXY: {{ .Values.enablePrivoxy }}
-  # LAN_NETWORK: {{ .Values.lanNetwork }}
-  # NAME_SERVERS: {{ .Values.nameServers }}
-  # DELUGE_DAEMON_LOG_LEVEL: {{ .Values.deluge.daemonLogLevel }}
-  # DELUGE_WEB_LOG_LEVEL: {{ .Values.deluge.webLogLevel }}
-  # ADDITIONAL_PORTS: {{ .Values.additionalPorts }}
-  # DEBUG: {{ .Values.debug }}
-  # UMASK: {{ .Values.umask }}
-  # PUID: {{ .Values.puid }}
-  # PGID: {{ .Values.pgid }}
+  DEBUG: {{ .debug }}
+  UMASK: {{ .umask }}
+  PUID: {{ .puid }}
+  PGID: {{ .pgid }}
+{{- end }}
